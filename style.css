@@ -395,6 +395,10 @@ ul { list-style: none; }
 .sec-hdr { text-align: center; margin-bottom: 56px; }
 
 /* ===================== ABOUT ===================== */
+.about {
+  background: #000000 !important;
+  position: relative;
+}
 .about-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 80px; align-items: center;
@@ -997,15 +1001,16 @@ html, body {
   .nl { font-size: .92rem; padding: 6px 0; }
   .nav-wa { width: 100%; justify-content: center; }
 
-  /* ===================== MOBILE HERO BANNER ===================== */
+  /* ===================== MOBILE HERO BANNER (MATCHES DESKTOP) ===================== */
   .hero {
-    min-height: 100svh;
-    height: auto;
-    padding: 75px 0 35px;
+    height: 58svh;
+    min-height: 400px;
+    max-height: 520px;
+    padding: 10px 0 0;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     position: relative;
     overflow: hidden;
     background: #000000;
@@ -1019,135 +1024,125 @@ html, body {
     overflow: hidden;
   }
   .hero-bloom {
-    width: 340px;
-    height: 400px;
-    right: 50%;
-    transform: translateX(50%);
-    top: 20px;
-    opacity: 0.95;
+    position: absolute;
+    width: 280px;
+    height: 380px;
+    right: -30px;
+    bottom: -30px;
+    top: auto;
+    left: auto;
+    transform: none;
+    opacity: 0.9;
+    pointer-events: none;
   }
-  /* Dedicated Mobile Portrait Hero Image */
+
+  /* The Girl Portrait anchored to right side (exact desktop vertical alignment) */
   .hero-photo {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    max-width: 440px;
-    height: 48vh;
-    min-height: 290px;
-    max-height: 420px;
-    margin: 0 auto;
+    height: 100%;
     z-index: 2;
     pointer-events: none;
     overflow: hidden;
+    display: block;
   }
   .hero-photo picture,
   .hero-photo picture img,
   .hero-img {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    inset: 0;
     height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
+    width: 100%;
+    object-fit: cover;
+    object-position: center center;
     display: block;
   }
-  /* Soft fades for seamless integration */
-  .photo-fade-l {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 15%;
-    background: linear-gradient(to right, #000000 0%, transparent 100%);
-    z-index: 3;
-  }
-  .photo-fade-r {
-    position: absolute; right: 0; top: 0; bottom: 0;
-    width: 15%;
-    background: linear-gradient(to left, #000000 0%, transparent 100%);
-    z-index: 3;
-  }
-  .photo-fade-t {
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 15%;
-    background: linear-gradient(to bottom, #000000 0%, transparent 100%);
-    z-index: 3;
-  }
-  .photo-fade-b {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 35%;
-    background: linear-gradient(to top, #000000 0%, #000000 15%, transparent 100%);
-    z-index: 3;
+  /* Edge feathering */
+  .photo-fade-l, .photo-fade-r, .photo-fade-t, .photo-fade-b {
+    display: none;
   }
 
-  /* The Text Container directly below */
+  /* The Text Container on the Left */
   .hero-text {
     position: relative;
     z-index: 5;
-    padding: 0 20px;
-    width: 100%;
-    max-width: 100%;
+    padding: 0 0 0 22px;
+    width: 56%;
+    max-width: 56%;
     box-sizing: border-box;
-    margin: -15px auto 0;
-    text-align: center;
+    margin: 0;
+    text-align: left;
   }
   .hero-brand {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    line-height: 1;
   }
   .hb-rai {
-    font-size: clamp(3.2rem, 15vw, 4.6rem);
+    font-size: clamp(3rem, 13vw, 4.2rem);
     letter-spacing: -2px;
-    line-height: .9;
+    line-height: .88;
     color: #ffffff;
-    display: inline-block;
+    display: block;
   }
   .hb-photo {
-    font-size: clamp(.72rem, 3.2vw, .92rem);
-    letter-spacing: 5px;
-    margin-top: 5px;
+    font-size: clamp(.65rem, 2.8vw, .85rem);
+    letter-spacing: 4.5px;
+    margin-top: 6px;
     color: var(--gold);
+    display: block;
   }
   .hb-sub {
-    font-size: .58rem;
-    letter-spacing: 2.2px;
-    margin-top: 7px;
-    color: rgba(255,255,255,0.6);
+    font-size: .52rem;
+    letter-spacing: 1.8px;
+    margin-top: 8px;
+    color: rgba(255,255,255,0.55);
+    display: block;
+    white-space: normal;
   }
   .hb-line {
-    width: 40px;
+    width: 34px;
     height: 1px;
-    margin: 12px auto;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 12px 0;
+    background: linear-gradient(to right, var(--gold), transparent);
+    display: block;
   }
   .hero-tagline {
-    font-size: 1.05rem;
-    line-height: 1.4;
-    margin: 0 auto 18px;
-    max-width: 300px;
-    color: rgba(201,169,110,0.9);
+    font-size: clamp(.88rem, 3.2vw, 1.05rem);
+    line-height: 1.35;
+    margin: 0 0 18px 0;
+    max-width: 210px;
+    color: rgba(201,169,110,0.85);
+    text-align: left;
   }
   .hero-actions {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
   .hero-actions .btn-gold {
-    padding: 10px 22px;
-    font-size: .8rem;
+    padding: 9px 16px;
+    font-size: .75rem;
+    white-space: nowrap;
   }
   .hero-actions .btn-outline {
-    padding: 10px 18px;
-    font-size: .8rem;
+    padding: 8px 14px;
+    font-size: .75rem;
+    white-space: nowrap;
   }
   .scroll-hint { display: none; }
 
-  /* Floating WhatsApp on Mobile - position safely */
+  /* Floating WhatsApp on Mobile - safe placement */
   .wa-float {
-    bottom: 24px;
+    bottom: 20px;
     right: 18px;
     width: 48px;
     height: 48px;
     font-size: 1.4rem;
   }
   .btt {
-    bottom: 80px;
+    bottom: 78px;
     right: 22px;
   }
 
@@ -1181,26 +1176,17 @@ html, body {
 }
 
 @media(max-width:480px){
-  .hero {
-    padding-bottom: 28px;
-  }
   .hero-text {
-    padding: 0 14px;
+    width: 56%;
+    max-width: 56%;
+    padding-left: 16px;
   }
   .hb-rai {
-    font-size: 3.4rem;
+    font-size: 2.85rem;
   }
-  .hero-actions {
-    flex-direction: row;
-    gap: 8px;
-  }
-  .hero-actions .btn-gold {
-    padding: 9px 16px;
-    font-size: .75rem;
-  }
-  .hero-actions .btn-outline {
-    padding: 9px 14px;
-    font-size: .75rem;
+  .hero-tagline {
+    max-width: 190px;
+    font-size: .86rem;
   }
   .port-grid {
     grid-template-columns: 1fr;
