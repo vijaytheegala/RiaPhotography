@@ -54,9 +54,12 @@
     <div class="hero-grain"></div>
     <div class="hero-bloom"></div>
 
-    <!-- Girl image — right side, blends seamlessly into the black canvas -->
+    <!-- Girl image — right side on desktop, dedicated portrait layout on mobile -->
     <div class="hero-photo">
-      <img src="image/hero_unified.png" alt="Rai Photography" class="hero-img" />
+      <picture>
+        <source media="(max-width: 768px)" srcset="image/hero_mobile.png">
+        <img src="image/hero_unified.png" alt="Rai Photography" class="hero-img" />
+      </picture>
       <div class="photo-fade-l"></div>
       <div class="photo-fade-r"></div>
       <div class="photo-fade-b"></div>
@@ -293,7 +296,7 @@
       </div>
       <div class="proc-stats" data-aos="fade-up">
         <div class="pstat-item">
-          <span class="pstat-num">1200<sup>+</sup></span>
+          <span class="pstat-num">573<sup>+</sup></span>
           <span class="pstat-lbl">Happy Clients</span>
         </div>
         <div class="pstat-sep"></div>
