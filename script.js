@@ -204,4 +204,109 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  /* ===== LUXURY AMBIENT GOLDEN PARTICLES IN HERO ===== */
+  const canvas = document.getElementById('heroParticles');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = 0, height = 0;
+    let particles = [];
+    let animId = null;
+    let isVisible = true;
+
+    function resize() {
+      if (!canvas.parentElement) return;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      width = canvas.width = rect.width;
+      height = canvas.height = rect.height;
+    }
+
+    class Particle {
+      constructor() {
+        this.reset(true);
+      }
+      reset(init = false) {
+        this.x = Math.random() * (width || window.innerWidth);
+        this.y = init ? Math.random() * (height || window.innerHeight) : (height || window.innerHeight) + 10;
+        this.size = Math.random() < 0.25 ? Math.random() * 2.8 + 2.2 : Math.random() * 1.5 + 0.8;
+        this.isBokeh = this.size > 2.2;
+        this.speedY = Math.random() * 0.45 + 0.15;
+        this.speedX = (Math.random() - 0.5) * 0.25;
+        this.pulseSpeed = Math.random() * 0.02 + 0.008;
+        this.pulse = Math.random() * Math.PI;
+        this.maxAlpha = this.isBokeh ? Math.random() * 0.22 + 0.08 : Math.random() * 0.45 + 0.25;
+        this.alpha = 0;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX + Math.sin(this.pulse) * 0.18;
+        this.pulse += this.pulseSpeed;
+        this.alpha = (Math.sin(this.pulse) + 1) * 0.5 * this.maxAlpha;
+
+        if (this.y < -15 || this.x < -20 || this.x > width + 20) {
+          this.reset(false);
+        }
+      }
+      draw() {
+        if (this.alpha <= 0.01) return;
+        ctx.save();
+        if (this.isBokeh) {
+          const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2.5);
+          grad.addColorStop(0, `rgba(225, 195, 138, ${this.alpha})`);
+          grad.addColorStop(0.5, `rgba(201, 169, 110, ${this.alpha * 0.4})`);
+          grad.addColorStop(1, 'rgba(201, 169, 110, 0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.shadowBlur = 8;
+          ctx.shadowColor = 'rgba(218, 185, 128, 0.8)';
+          ctx.fillStyle = `rgba(235, 205, 150, ${this.alpha})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    function initParticles() {
+      resize();
+      const count = window.innerWidth < 768 ? 20 : 36;
+      particles = Array.from({ length: count }, () => new Particle());
+    }
+
+    function loop() {
+      if (!isVisible) return;
+      ctx.clearRect(0, 0, width, height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+      }
+      animId = requestAnimationFrame(loop);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          if (!animId) loop();
+        } else if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      }, { threshold: 0.05 });
+
+      const heroSection = document.getElementById('home');
+      if (heroSection) observer.observe(heroSection);
+    }
+
+    window.addEventListener('resize', () => {
+      resize();
+    }, { passive: true });
+
+    initParticles();
+    loop();
+  }
+
 });

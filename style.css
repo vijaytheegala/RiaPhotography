@@ -185,6 +185,16 @@ ul { list-style: none; }
   pointer-events: none;
 }
 
+/* Ambient golden light bokeh & dust particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
 /* ---- Girl Photo ---- */
 .hero-photo {
   position: absolute;
