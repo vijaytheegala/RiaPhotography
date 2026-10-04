@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== PRELOADER ===== */
   const pl = document.getElementById('preloader');
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = encodeURIComponent(
         `Hi! I want to book a photoshoot.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nMessage: ${msg}`
       );
-      window.open(`https://wa.me/919395563930?text=${text}`, '_blank');
+      window.open(`https://wa.me/919398556393?text=${text}`, '_blank');
     });
   }
 
